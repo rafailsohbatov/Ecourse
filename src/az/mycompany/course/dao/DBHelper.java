@@ -17,7 +17,7 @@ import java.util.Properties;
 public class DBHelper {
     public static Connection getConnection() throws Exception {
         Properties properties = new Properties();
-        properties.load(new BufferedReader(new FileReader("config.properties")));
+        properties.load(new BufferedReader(new FileReader("C:\\Users\\Admin\\Desktop\\config.properties")));
         Class.forName(properties.getProperty("db.driver"));
         Connection c = DriverManager.getConnection(properties.getProperty("db.url"), properties.getProperty("db.username"), properties.getProperty("db.password"));
         return c;
