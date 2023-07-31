@@ -9,5 +9,24 @@ package az.mycompany.course.model;
  * @author Admin
  */
 public class Payment extends Course{
+    private StudentTeacherLesson studentTeacherLesson;
+    private Float amount;
+
+    public StudentTeacherLesson getStudentTeacherLesson() {
+        return studentTeacherLesson;
+    }
+
+    public void setStudentTeacherLesson(StudentTeacherLesson studentTeacherLesson) {
+        this.studentTeacherLesson = studentTeacherLesson;
+    }
+
+    public Float getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Float amount) {
+        this.amount = amount;
+    }
+    
     
 }

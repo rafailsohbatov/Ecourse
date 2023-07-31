@@ -6,12 +6,16 @@ package az.mycompany.course.gui;
 
 import az.mycompany.course.dao.LessonDao;
 import az.mycompany.course.dao.LessonDaoImpl;
+import az.mycompany.course.dao.PaymentDao;
+import az.mycompany.course.dao.PaymentDaoImpl;
 import az.mycompany.course.dao.StudentDao;
 import az.mycompany.course.dao.StudentDaoImpl;
 import az.mycompany.course.dao.TeacherDao;
 import az.mycompany.course.dao.TeacherDaoImpl;
 import az.mycompany.course.service.LessonService;
 import az.mycompany.course.service.LessonServiceImpl;
+import az.mycompany.course.service.PaymentService;
+import az.mycompany.course.service.PaymentServiceImpl;
 import az.mycompany.course.service.StudentService;
 import az.mycompany.course.service.StudentServiceImpl;
 import az.mycompany.course.service.TeacherService;
@@ -40,7 +44,9 @@ public class MainClass {
         TeacherService teacherService = new TeacherServiceImpl(teacherDao);
         LessonDao lessanDao = new LessonDaoImpl();
         LessonService lessonService = new LessonServiceImpl(lessanDao);
-        MainFrame mainFrame = new MainFrame(studentService,teacherService,lessonService);
+        PaymentDao paymentDao = new PaymentDaoImpl();
+        PaymentService paymentService = new PaymentServiceImpl(paymentDao);
+        MainFrame mainFrame = new MainFrame(studentService,teacherService,lessonService,paymentService);
         mainFrame.setVisible(true);
 
     }

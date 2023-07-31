@@ -5,9 +5,11 @@
 package az.mycompany.course.gui;
 
 import az.mycompany.course.model.Lesson;
+import az.mycompany.course.model.Payment;
 import az.mycompany.course.model.Student;
 import az.mycompany.course.model.Teacher;
 import az.mycompany.course.service.LessonService;
+import az.mycompany.course.service.PaymentService;
 import az.mycompany.course.service.StudentService;
 import az.mycompany.course.service.TeacherService;
 import java.util.List;
@@ -24,20 +26,14 @@ public class MainFrame extends javax.swing.JFrame {
     private StudentService studentService;
     private TeacherService teacherService;
     private LessonService lessonService;
+    private PaymentService paymentService;
 
-    public MainFrame() {
-
-    }
-
-    MainFrame(StudentService studentService) {
-
-    }
-
-    MainFrame(StudentService studentService, TeacherService teacherService, LessonService lessonService) {
+    MainFrame(StudentService studentService, TeacherService teacherService, LessonService lessonService, PaymentService paymentService) {
         initComponents();
         this.studentService = studentService;
         this.teacherService = teacherService;
         this.lessonService = lessonService;
+        this.paymentService = paymentService;
     }
 
     /**
@@ -57,6 +53,7 @@ public class MainFrame extends javax.swing.JFrame {
         studentDataBtn = new javax.swing.JButton();
         teacherDataBtn = new javax.swing.JButton();
         lessonDataBtn = new javax.swing.JButton();
+        PaymentDataBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -133,6 +130,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        PaymentDataBtn.setText("Payment Data");
+        PaymentDataBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PaymentDataBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -142,7 +146,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(studentDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(teacherDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lessonDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lessonDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PaymentDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -154,6 +159,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(teacherDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lessonDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PaymentDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -236,10 +243,15 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void lessonDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonDataBtnActionPerformed
-      showLessonData();
+        showLessonData();
     }//GEN-LAST:event_lessonDataBtnActionPerformed
 
+    private void PaymentDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentDataBtnActionPerformed
+        showPaymentData();
+    }//GEN-LAST:event_PaymentDataBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton PaymentDataBtn;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -299,8 +311,8 @@ public class MainFrame extends javax.swing.JFrame {
 
             List<Teacher> teacherList = teacherService.getTeacherList();
             for (Teacher teacher : teacherList) {
-                Object[] obj = new Object[]{teacher.getId(),teacher.getName(),teacher.getSurname()
-                        ,teacher.getDob(),teacher.getAddress(),teacher.getPhone(),teacher.getWork_experience()};
+                Object[] obj = new Object[]{teacher.getId(), teacher.getName(), teacher.getSurname(),
+                    teacher.getDob(), teacher.getAddress(), teacher.getPhone(), teacher.getWork_experience()};
                 model.addRow(obj);
                 model.fireTableDataChanged();
             }
@@ -327,9 +339,38 @@ public class MainFrame extends javax.swing.JFrame {
 
             List<Lesson> teacherList = lessonService.getStudentList();
             for (Lesson lesson : teacherList) {
-                Object[] obj = new Object[]{lesson.getId(),lesson.getName(),lesson.getTime()
-                        ,lesson.getPrice()};
+                Object[] obj = new Object[]{lesson.getId(), lesson.getName(), lesson.getTime(),
+                    lesson.getPrice()};
                 model.addRow(obj);
+                model.fireTableDataChanged();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void showPaymentData() {
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            jTable1.setModel(model);
+            
+            model.addColumn("№");
+            model.addColumn("Student Name & Surname");
+            model.addColumn("Teacher Name & Surname");
+            model.addColumn("Lesson Name");
+            model.addColumn("Lesson Time");
+            model.addColumn("Lesson Price");
+            model.addColumn("Amount");
+            
+            List<Payment> paymentList =  paymentService.getPaymentList();
+            
+            for(Payment payment : paymentList){
+                Student student = payment.getStudentTeacherLesson().getStudent();
+                Teacher teacher = payment.getStudentTeacherLesson().getTeacherLesson().getTeacher();
+                Lesson lesson = payment.getStudentTeacherLesson().getTeacherLesson().getLesson();
+                Object[] object = {payment.getId(),student.getName()+" "+student.getSurname(),teacher.getName()+" "+teacher.getSurname(),
+                lesson.getName(),lesson.getTime(),lesson.getPrice(),payment.getAmount()};
+                model.addRow(object);
                 model.fireTableDataChanged();
             }
         } catch (Exception ex) {
