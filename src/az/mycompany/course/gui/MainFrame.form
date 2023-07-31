@@ -135,6 +135,7 @@
                       <Component id="studentDataBtn" max="32767" attributes="0"/>
                       <Component id="teacherDataBtn" max="32767" attributes="0"/>
                       <Component id="lessonDataBtn" max="32767" attributes="0"/>
+                      <Component id="PaymentDataBtn" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="14" max="32767" attributes="0"/>
               </Group>
@@ -149,6 +150,8 @@
                   <Component id="teacherDataBtn" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lessonDataBtn" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="PaymentDataBtn" min="-2" pref="53" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -177,6 +180,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lessonDataBtnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="PaymentDataBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Payment Data"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PaymentDataBtnActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
