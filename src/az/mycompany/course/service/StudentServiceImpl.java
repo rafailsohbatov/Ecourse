@@ -24,5 +24,10 @@ public class StudentServiceImpl implements StudentService{
     public List<Student> getStudentList() throws Exception{
         return studentDao.getStudentList();
     }
+
+    @Override
+    public void addStudent(Student student) throws Exception {
+        studentDao.addStudent(student);
+    }
     
 }

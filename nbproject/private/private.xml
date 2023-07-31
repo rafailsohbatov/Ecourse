@@ -3,7 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/dao/StudentDaoImpl.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/gui/MainClass.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/gui/NewStudentFrame.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/service/StudentServiceImpl.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/gui/MainFrame.java</file>
         </group>
     </open-files>
 </project-private>

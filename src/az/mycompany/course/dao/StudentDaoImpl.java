@@ -20,7 +20,7 @@ public class StudentDaoImpl implements StudentDao {
         List<Student> list = new ArrayList<>();
         String sql = "SELECT * FROM STUDENT WHERE ACTIVE = 1";
         try ( Connection c = DBHelper.getConnection();  PreparedStatement ps = c.prepareStatement(sql);  ResultSet rs = ps.executeQuery()) {
-            
+
             while (rs.next()) {
                 Student student = new Student();
                 student.setId(rs.getLong("Id"));
@@ -34,6 +34,21 @@ public class StudentDaoImpl implements StudentDao {
 
         }
         return list;
+    }
+
+    @Override
+    public void addStudent(Student student) throws Exception {
+        String sql = "INSERT INTO STUDENT(Id,Name,Surname,Dob,Phone,Address)"
+                + "VALUES(STUDENT_SEQ.NEXTVAL,?,?,?,?,?)";
+        try ( Connection c = DBHelper.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, student.getName());
+            ps.setString(2, student.getSurname());
+            ps.setDate(3, new Date(student.getDob().getTime()));
+            ps.setString(4, student.getPhone());
+            ps.setString(5, student.getAddress());
+            ps.execute();
+            c.commit();
+        }
     }
 
 }

@@ -15,6 +15,7 @@ import az.mycompany.course.service.TeacherService;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -23,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    private String gloBtnName = "";
     private StudentService studentService;
     private TeacherService teacherService;
     private LessonService lessonService;
@@ -224,14 +226,24 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void studentDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentDataBtnActionPerformed
         showStudentData();
+        gloBtnName = "student";
     }//GEN-LAST:event_studentDataBtnActionPerformed
 
     private void teacherDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherDataBtnActionPerformed
         showTeacherData();
+        gloBtnName = "teacher";
     }//GEN-LAST:event_teacherDataBtnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        switch(gloBtnName){
+            case "student" -> {
+                NewStudentFrame newStudentFrame = new NewStudentFrame(studentService);
+                newStudentFrame.setVisible(true);
+            }
+            case "teacher" -> {
+            }
+            default -> JOptionPane.showMessageDialog(null, "Please,first click table");
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -244,10 +256,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void lessonDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonDataBtnActionPerformed
         showLessonData();
+        gloBtnName = "lesson";
     }//GEN-LAST:event_lessonDataBtnActionPerformed
 
     private void PaymentDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentDataBtnActionPerformed
         showPaymentData();
+        gloBtnName = "payment";
     }//GEN-LAST:event_PaymentDataBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -353,7 +367,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             DefaultTableModel model = new DefaultTableModel();
             jTable1.setModel(model);
-            
+
             model.addColumn("№");
             model.addColumn("Student Name & Surname");
             model.addColumn("Teacher Name & Surname");
@@ -361,15 +375,15 @@ public class MainFrame extends javax.swing.JFrame {
             model.addColumn("Lesson Time");
             model.addColumn("Lesson Price");
             model.addColumn("Amount");
-            
-            List<Payment> paymentList =  paymentService.getPaymentList();
-            
-            for(Payment payment : paymentList){
+
+            List<Payment> paymentList = paymentService.getPaymentList();
+
+            for (Payment payment : paymentList) {
                 Student student = payment.getStudentTeacherLesson().getStudent();
                 Teacher teacher = payment.getStudentTeacherLesson().getTeacherLesson().getTeacher();
                 Lesson lesson = payment.getStudentTeacherLesson().getTeacherLesson().getLesson();
-                Object[] object = {payment.getId(),student.getName()+" "+student.getSurname(),teacher.getName()+" "+teacher.getSurname(),
-                lesson.getName(),lesson.getTime(),lesson.getPrice(),payment.getAmount()};
+                Object[] object = {payment.getId(), student.getName() + " " + student.getSurname(), teacher.getName() + " " + teacher.getSurname(),
+                    lesson.getName(), lesson.getTime(), lesson.getPrice(), payment.getAmount()};
                 model.addRow(object);
                 model.fireTableDataChanged();
             }
