@@ -29,5 +29,14 @@ public class StudentServiceImpl implements StudentService{
     public void addStudent(Student student) throws Exception {
         studentDao.addStudent(student);
     }
-    
+
+    @Override
+    public Student getStudentById(Long studentId) throws Exception {
+        return studentDao.getStudentById(studentId);
+    }
+
+    @Override
+    public void updateStudent(Student student) throws Exception {
+        studentDao.updateStudent(student);
+    }
 }

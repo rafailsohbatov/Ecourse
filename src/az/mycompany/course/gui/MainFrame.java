@@ -48,8 +48,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        newBtn = new javax.swing.JButton();
+        updateBtn = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         studentDataBtn = new javax.swing.JButton();
@@ -64,17 +64,17 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
-        jButton3.setText("new");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        newBtn.setText("new");
+        newBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                newBtnActionPerformed(evt);
             }
         });
 
-        jButton4.setText("update");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        updateBtn.setText("update");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                updateBtnActionPerformed(evt);
             }
         });
 
@@ -91,9 +91,9 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton3)
+                .addComponent(newBtn)
                 .addGap(30, 30, 30)
-                .addComponent(jButton4)
+                .addComponent(updateBtn)
                 .addGap(37, 37, 37)
                 .addComponent(jButton5)
                 .addContainerGap(409, Short.MAX_VALUE))
@@ -103,8 +103,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                    .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
@@ -234,21 +234,38 @@ public class MainFrame extends javax.swing.JFrame {
         gloBtnName = "teacher";
     }//GEN-LAST:event_teacherDataBtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        switch(gloBtnName){
+    private void newBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newBtnActionPerformed
+        switch (gloBtnName) {
             case "student" -> {
                 NewStudentFrame newStudentFrame = new NewStudentFrame(studentService);
                 newStudentFrame.setVisible(true);
             }
             case "teacher" -> {
             }
-            default -> JOptionPane.showMessageDialog(null, "Please,first click table");
+            default ->
+                JOptionPane.showMessageDialog(null, "Please,first click table");
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_newBtnActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        int rowIndex = jTable1.getSelectedRow();
+        if(rowIndex == -1){
+            JOptionPane.showMessageDialog(null, "Please,first click row");
+            return;
+        }
+        Long selectedRow = (Long) jTable1.getValueAt(rowIndex, 0);
+      
+        switch (gloBtnName) {
+            case "student" -> {
+                UpdateStudentFrame updateStudentFrame = new UpdateStudentFrame(studentService,selectedRow);
+                updateStudentFrame.setVisible(true);
+            }
+            case "teacher" -> {
+            }
+            default ->
+                JOptionPane.showMessageDialog(null, "Please,first click table");
+        }
+    }//GEN-LAST:event_updateBtnActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -266,8 +283,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PaymentDataBtn;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -275,8 +290,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton lessonDataBtn;
+    private javax.swing.JButton newBtn;
     private javax.swing.JButton studentDataBtn;
     private javax.swing.JButton teacherDataBtn;
+    private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 
     private void showStudentData() {

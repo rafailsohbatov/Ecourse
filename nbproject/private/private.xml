@@ -3,10 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/dao/StudentDao.java</file>
             <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/gui/MainClass.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/gui/UpdateStudentFrame.java</file>
             <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/gui/NewStudentFrame.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/dao/TeacherDaoImpl.java</file>
             <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/service/StudentServiceImpl.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/dao/StudentDaoImpl.java</file>
             <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/gui/MainFrame.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/model/Student.java</file>
+            <file>file:/C:/Users/Admin/Desktop/Ecourse/src/az/mycompany/course/service/StudentService.java</file>
         </group>
     </open-files>
 </project-private>

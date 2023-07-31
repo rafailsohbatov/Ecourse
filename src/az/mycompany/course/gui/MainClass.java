@@ -48,6 +48,7 @@ public class MainClass {
         PaymentService paymentService = new PaymentServiceImpl(paymentDao);
         MainFrame mainFrame = new MainFrame(studentService,teacherService,lessonService,paymentService);
         mainFrame.setVisible(true);
+       
     }
 
 }
