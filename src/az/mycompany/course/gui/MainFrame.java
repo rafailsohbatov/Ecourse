@@ -4,8 +4,12 @@
  */
 package az.mycompany.course.gui;
 
+import az.mycompany.course.model.Lesson;
 import az.mycompany.course.model.Student;
+import az.mycompany.course.model.Teacher;
+import az.mycompany.course.service.LessonService;
 import az.mycompany.course.service.StudentService;
+import az.mycompany.course.service.TeacherService;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,15 +22,22 @@ import javax.swing.table.DefaultTableModel;
 public class MainFrame extends javax.swing.JFrame {
 
     private StudentService studentService;
+    private TeacherService teacherService;
+    private LessonService lessonService;
 
     public MainFrame() {
 
     }
 
     MainFrame(StudentService studentService) {
+
+    }
+
+    MainFrame(StudentService studentService, TeacherService teacherService, LessonService lessonService) {
         initComponents();
         this.studentService = studentService;
-
+        this.teacherService = teacherService;
+        this.lessonService = lessonService;
     }
 
     /**
@@ -43,8 +54,9 @@ public class MainFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        studentDataBtn = new javax.swing.JButton();
+        teacherDataBtn = new javax.swing.JButton();
+        lessonDataBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -100,17 +112,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
-        jButton1.setText("Student Data");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        studentDataBtn.setText("Student Data");
+        studentDataBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                studentDataBtnActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Teacher Data");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        teacherDataBtn.setText("Teacher Data");
+        teacherDataBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                teacherDataBtnActionPerformed(evt);
+            }
+        });
+
+        lessonDataBtn.setText("Lesson Data");
+        lessonDataBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lessonDataBtnActionPerformed(evt);
             }
         });
 
@@ -121,17 +140,20 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(studentDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(teacherDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lessonDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(studentDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(teacherDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lessonDataBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -193,13 +215,13 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void studentDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentDataBtnActionPerformed
         showStudentData();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_studentDataBtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void teacherDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherDataBtnActionPerformed
+        showTeacherData();
+    }//GEN-LAST:event_teacherDataBtnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -213,9 +235,11 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void lessonDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonDataBtnActionPerformed
+      showLessonData();
+    }//GEN-LAST:event_lessonDataBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -224,6 +248,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JButton lessonDataBtn;
+    private javax.swing.JButton studentDataBtn;
+    private javax.swing.JButton teacherDataBtn;
     // End of variables declaration//GEN-END:variables
 
     private void showStudentData() {
@@ -240,8 +267,8 @@ public class MainFrame extends javax.swing.JFrame {
             List<Student> studentList = studentService.getStudentList();
             for (Student student : studentList) {
                 Object[] object = new Object[]{
-                 student.getId(),student.getName(),student.getSurname(),student.getDob(),
-                    student.getAddress(),student.getPhone()
+                    student.getId(), student.getName(), student.getSurname(), student.getDob(),
+                    student.getAddress(), student.getPhone()
                 };
                 model.addRow(object);
                 model.fireTableDataChanged();
@@ -251,4 +278,63 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
     }
+
+    private void showTeacherData() {
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+
+            jTable1.setModel(model);
+            model.addColumn("№");
+            model.addColumn("Name");
+            model.addColumn("Surname");
+            model.addColumn("Dob");
+            model.addColumn("Address");
+            model.addColumn("Phone");
+            model.addColumn("Work_Experience");
+
+            List<Teacher> teacherList = teacherService.getTeacherList();
+            for (Teacher teacher : teacherList) {
+                Object[] obj = new Object[]{teacher.getId(),teacher.getName(),teacher.getSurname()
+                        ,teacher.getDob(),teacher.getAddress(),teacher.getPhone(),teacher.getWork_experience()};
+                model.addRow(obj);
+                model.fireTableDataChanged();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    private void showLessonData() {
+        try {
+            DefaultTableModel model = new DefaultTableModel() {
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+
+            jTable1.setModel(model);
+            model.addColumn("№");
+            model.addColumn("Name");
+            model.addColumn("Time");
+            model.addColumn("Price");
+
+            List<Lesson> teacherList = lessonService.getStudentList();
+            for (Lesson lesson : teacherList) {
+                Object[] obj = new Object[]{lesson.getId(),lesson.getName(),lesson.getTime()
+                        ,lesson.getPrice()};
+                model.addRow(obj);
+                model.fireTableDataChanged();
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
 }
