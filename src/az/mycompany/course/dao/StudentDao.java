@@ -19,4 +19,6 @@ public interface StudentDao {
     Student getStudentById(Long studentId) throws Exception;
     
     void updateStudent(Student student) throws Exception;
+    
+    void deleteStudent(Long studentId) throws Exception;
 }

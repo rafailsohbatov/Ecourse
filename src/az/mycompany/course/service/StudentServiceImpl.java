@@ -39,4 +39,9 @@ public class StudentServiceImpl implements StudentService{
     public void updateStudent(Student student) throws Exception {
         studentDao.updateStudent(student);
     }
+
+    @Override
+    public void deleteStudent(Long studentId) throws Exception {
+        studentDao.deleteStudent(studentId);
+    }
 }

@@ -50,7 +50,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         newBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        deleteBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         studentDataBtn = new javax.swing.JButton();
         teacherDataBtn = new javax.swing.JButton();
@@ -78,10 +78,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setText("delete");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        deleteBtn.setText("delete");
+        deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                deleteBtnActionPerformed(evt);
             }
         });
 
@@ -95,7 +95,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addComponent(updateBtn)
                 .addGap(37, 37, 37)
-                .addComponent(jButton5)
+                .addComponent(deleteBtn)
                 .addContainerGap(409, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -105,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
                     .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -249,27 +249,51 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
         int rowIndex = jTable1.getSelectedRow();
-        if(rowIndex == -1){
-            JOptionPane.showMessageDialog(null, "Please,first click row");
+        if (rowIndex == -1) {
+            JOptionPane.showMessageDialog(null, "Please,first click row", "Error Update", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Long selectedRow = (Long) jTable1.getValueAt(rowIndex, 0);
-      
+
         switch (gloBtnName) {
             case "student" -> {
-                UpdateStudentFrame updateStudentFrame = new UpdateStudentFrame(studentService,selectedRow);
+                UpdateStudentFrame updateStudentFrame = new UpdateStudentFrame(studentService, selectedRow);
                 updateStudentFrame.setVisible(true);
             }
             case "teacher" -> {
             }
             default ->
-                JOptionPane.showMessageDialog(null, "Please,first click table");
+                JOptionPane.showMessageDialog(null, "Please,first click table", "Error Update", JOptionPane.ERROR);
         }
     }//GEN-LAST:event_updateBtnActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
+        try {
+            int indexRow = jTable1.getSelectedRow();
+            if (indexRow == -1) {
+                JOptionPane.showMessageDialog(null, "Please,first click row", "Error Update", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Long selectedRow = (Long) jTable1.getValueAt(indexRow, 0);
+            switch (gloBtnName) {
+                case "student" -> {
+                    Student student = studentService.getStudentById(selectedRow);
+                    int isDelete = JOptionPane.showConfirmDialog(null, "Are you sure to delete " + student.getName(), "Delete Student", JOptionPane.YES_NO_CANCEL_OPTION);
+                    if (isDelete == JOptionPane.YES_OPTION) {
+                        studentService.deleteStudent(selectedRow);
+                        showStudentData();
+                    }
+                }
+                case "teacher" -> {
+                }
+                default ->
+                    JOptionPane.showMessageDialog(null, "Please,first click table", "Error Update", JOptionPane.ERROR);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void lessonDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lessonDataBtnActionPerformed
         showLessonData();
@@ -283,7 +307,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PaymentDataBtn;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton deleteBtn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

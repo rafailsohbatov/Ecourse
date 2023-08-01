@@ -84,6 +84,16 @@ public class StudentDaoImpl implements StudentDao {
             ps.execute();
             c.commit();
         }
+        
     }
-    
+
+    @Override
+    public void deleteStudent(Long studentId) throws Exception {
+         String sql = "UPDATE STUDENT SET ACTIVE=0 WHERE ID=?";
+        try ( Connection c = DBHelper.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setLong(1, studentId);
+            ps.execute();
+            c.commit();
+        }
+    }
 }
