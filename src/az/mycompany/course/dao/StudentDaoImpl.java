@@ -14,13 +14,13 @@ import java.sql.*;
  * @author Admin
  */
 public class StudentDaoImpl implements StudentDao {
-    
+
     @Override
     public List<Student> getStudentList() throws Exception {
         List<Student> list = new ArrayList<>();
         String sql = "SELECT * FROM STUDENT WHERE ACTIVE = 1";
         try ( Connection c = DBHelper.getConnection();  PreparedStatement ps = c.prepareStatement(sql);  ResultSet rs = ps.executeQuery()) {
-            
+
             while (rs.next()) {
                 Student student = new Student();
                 student.setId(rs.getLong("Id"));
@@ -31,11 +31,11 @@ public class StudentDaoImpl implements StudentDao {
                 student.setPhone(rs.getString("Phone"));
                 list.add(student);
             }
-            
+
         }
         return list;
     }
-    
+
     @Override
     public void addStudent(Student student) throws Exception {
         String sql = "INSERT INTO STUDENT(Id,Name,Surname,Dob,Phone,Address)"
@@ -50,7 +50,7 @@ public class StudentDaoImpl implements StudentDao {
             c.commit();
         }
     }
-    
+
     @Override
     public Student getStudentById(Long studentId) throws Exception {
         String sql = "SELECT * FROM STUDENT WHERE ID = ? AND ACTIVE = 1 ";
@@ -66,11 +66,11 @@ public class StudentDaoImpl implements StudentDao {
                 student.setAddress(rs.getString("ADDRESS"));
                 student.setPhone(rs.getString("PHONE"));
             }
-            
+
         }
         return student;
     }
-    
+
     @Override
     public void updateStudent(Student student) throws Exception {
         String sql = "UPDATE STUDENT SET NAME=?,SURNAME=?,DOB=?,ADDRESS=?,PHONE=? WHERE ID=?";
@@ -84,16 +84,40 @@ public class StudentDaoImpl implements StudentDao {
             ps.execute();
             c.commit();
         }
-        
+
     }
 
     @Override
     public void deleteStudent(Long studentId) throws Exception {
-         String sql = "UPDATE STUDENT SET ACTIVE=0 WHERE ID=?";
+        String sql = "UPDATE STUDENT SET ACTIVE=0 WHERE ID=?";
         try ( Connection c = DBHelper.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setLong(1, studentId);
             ps.execute();
             c.commit();
         }
+    }
+
+    @Override
+    public List<Student> searchStudentData(String keyword) throws Exception {
+        List<Student> list = new ArrayList<>();
+        String sql = "SELECT * FROM STUDENT WHERE ACTIVE = 1 AND (LOWER(NAME) LIKE LOWER(?) OR LOWER(SURNAME) LIKE LOWER(?) OR LOWER(ADDRESS) LIKE LOWER(?))";
+        try ( Connection c = DBHelper.getConnection();  PreparedStatement ps = c.prepareStatement(sql);) {
+
+            ps.setString(1, "%" + keyword +"%");
+            ps.setString(2, "%" + keyword +"%");
+            ps.setString(3, "%" + keyword +"%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Student student = new Student();
+                student.setId(rs.getLong("Id"));
+                student.setName(rs.getString("Name"));
+                student.setSurname(rs.getString("Surname"));
+                student.setDob(rs.getDate("Dob"));
+                student.setAddress(rs.getString("Address"));
+                student.setPhone(rs.getString("Phone"));
+                list.add(student);
+            }
+        }
+        return list;
     }
 }

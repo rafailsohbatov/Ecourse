@@ -21,4 +21,6 @@ public interface StudentDao {
     void updateStudent(Student student) throws Exception;
     
     void deleteStudent(Long studentId) throws Exception;
+    
+    List<Student> searchStudentData(String keyword) throws Exception;
 }

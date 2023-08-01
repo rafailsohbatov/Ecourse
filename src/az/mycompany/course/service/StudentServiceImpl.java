@@ -44,4 +44,9 @@ public class StudentServiceImpl implements StudentService{
     public void deleteStudent(Long studentId) throws Exception {
         studentDao.deleteStudent(studentId);
     }
+
+    @Override
+    public List<Student> searchStudentData(String keyword) throws Exception {
+        return studentDao.searchStudentData(keyword);
+    }
 }

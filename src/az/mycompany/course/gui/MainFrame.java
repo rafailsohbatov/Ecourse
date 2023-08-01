@@ -51,6 +51,8 @@ public class MainFrame extends javax.swing.JFrame {
         newBtn = new javax.swing.JButton();
         updateBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
+        keywordTxt = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         studentDataBtn = new javax.swing.JButton();
         teacherDataBtn = new javax.swing.JButton();
@@ -85,6 +87,19 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        keywordTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                keywordTxtKeyReleased(evt);
+            }
+        });
+
+        searchBtn.setText("Search");
+        searchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -96,17 +111,24 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(updateBtn)
                 .addGap(37, 37, 37)
                 .addComponent(deleteBtn)
-                .addContainerGap(409, Short.MAX_VALUE))
+                .addGap(144, 144, 144)
+                .addComponent(keywordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(searchBtn)
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                    .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(keywordTxt)
+                        .addComponent(searchBtn))
+                    .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -182,17 +204,11 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,19 +218,19 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -225,8 +241,12 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void studentDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentDataBtnActionPerformed
-        showStudentData();
-        gloBtnName = "student";
+        try {
+            showStudentData(studentService.getStudentList());
+            gloBtnName = "student";
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_studentDataBtnActionPerformed
 
     private void teacherDataBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teacherDataBtnActionPerformed
@@ -281,7 +301,7 @@ public class MainFrame extends javax.swing.JFrame {
                     int isDelete = JOptionPane.showConfirmDialog(null, "Are you sure to delete " + student.getName(), "Delete Student", JOptionPane.YES_NO_CANCEL_OPTION);
                     if (isDelete == JOptionPane.YES_OPTION) {
                         studentService.deleteStudent(selectedRow);
-                        showStudentData();
+                        showStudentData(studentService.getStudentList());
                     }
                 }
                 case "teacher" -> {
@@ -305,6 +325,20 @@ public class MainFrame extends javax.swing.JFrame {
         gloBtnName = "payment";
     }//GEN-LAST:event_PaymentDataBtnActionPerformed
 
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        try {
+            List<Student> listStudent = studentService.searchStudentData(keywordTxt.getText());
+            showStudentData(listStudent);
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_searchBtnActionPerformed
+
+    private void keywordTxtKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keywordTxtKeyReleased
+        searchBtnActionPerformed(null);
+    }//GEN-LAST:event_keywordTxtKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PaymentDataBtn;
     private javax.swing.JButton deleteBtn;
@@ -313,35 +347,33 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField keywordTxt;
     private javax.swing.JButton lessonDataBtn;
     private javax.swing.JButton newBtn;
+    private javax.swing.JButton searchBtn;
     private javax.swing.JButton studentDataBtn;
     private javax.swing.JButton teacherDataBtn;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
 
-    private void showStudentData() {
-        try {
-            DefaultTableModel model = new DefaultTableModel();
-            jTable1.setModel(model);
-            model.addColumn("№");
-            model.addColumn("Name");
-            model.addColumn("Surname");
-            model.addColumn("Dob");
-            model.addColumn("Address");
-            model.addColumn("Phone");
+    private void showStudentData(List<Student> studentList) {
 
-            List<Student> studentList = studentService.getStudentList();
-            for (Student student : studentList) {
-                Object[] object = new Object[]{
-                    student.getId(), student.getName(), student.getSurname(), student.getDob(),
-                    student.getAddress(), student.getPhone()
-                };
-                model.addRow(object);
-                model.fireTableDataChanged();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        DefaultTableModel model = new DefaultTableModel();
+        jTable1.setModel(model);
+        model.addColumn("№");
+        model.addColumn("Name");
+        model.addColumn("Surname");
+        model.addColumn("Dob");
+        model.addColumn("Address");
+        model.addColumn("Phone");
+
+        for (Student student : studentList) {
+            Object[] object = new Object[]{
+                student.getId(), student.getName(), student.getSurname(), student.getDob(),
+                student.getAddress(), student.getPhone()
+            };
+            model.addRow(object);
+            model.fireTableDataChanged();
         }
 
     }
