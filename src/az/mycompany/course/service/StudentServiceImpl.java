@@ -6,6 +6,7 @@ package az.mycompany.course.service;
 
 import az.mycompany.course.dao.StudentDao;
 import az.mycompany.course.model.Student;
+import az.mycompany.course.model.StudentTeacherLesson;
 import java.util.List;
 
 /**
@@ -48,5 +49,10 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public List<Student> searchStudentData(String keyword) throws Exception {
         return studentDao.searchStudentData(keyword);
+    }
+
+    @Override
+    public StudentTeacherLesson getStudentTeacherLessonById(Long studentId, Long teacherLessonId) throws Exception {
+        return studentDao.getStudentTeacherLessonById(studentId, teacherLessonId);
     }
 }

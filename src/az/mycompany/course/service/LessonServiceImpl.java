@@ -21,8 +21,13 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public List<Lesson> getStudentList() throws Exception {
+    public List<Lesson> getLessonList() throws Exception {
        return lessonDao.getLessonList();
+    }
+
+    @Override
+    public List<Lesson> getLessonByStudentId(Long studentId) throws Exception {
+        return lessonDao.getLessonByStudentId(studentId);
     }
 
 }

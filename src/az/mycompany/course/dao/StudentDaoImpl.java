@@ -5,6 +5,7 @@
 package az.mycompany.course.dao;
 
 import az.mycompany.course.model.Student;
+import az.mycompany.course.model.StudentTeacherLesson;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.*;
@@ -23,7 +24,7 @@ public class StudentDaoImpl implements StudentDao {
 
             while (rs.next()) {
                 Student student = new Student();
-                student.setId(rs.getLong("Id"));
+                student.setId(rs.getLong("ID"));
                 student.setName(rs.getString("Name"));
                 student.setSurname(rs.getString("Surname"));
                 student.setDob(rs.getDate("Dob"));
@@ -119,5 +120,21 @@ public class StudentDaoImpl implements StudentDao {
             }
         }
         return list;
+    }
+
+    @Override
+    public StudentTeacherLesson getStudentTeacherLessonById(Long studentId, Long teacherLessonId) throws Exception {
+        String sql = "SELECT * FROM STUDENT_TEACHER_LESSON STL INNER JOIN TEACHER_LESSON TL ON TL.ID = STL.TEACHER_LESSON_ID "
+                + " INNER JOIN STUDENT S ON S.ID = STL.STUDENT_ID WHERE STL.ACTIVE = 1 AND S.ID = ? AND TL.ID = ? ";
+        StudentTeacherLesson studentTeacherLesson = new StudentTeacherLesson();
+        try ( Connection c = DBHelper.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setLong(1, studentId);
+            ps.setLong(2, teacherLessonId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                studentTeacherLesson.setId(rs.getLong("Id"));
+            }
+        }
+        return studentTeacherLesson;
     }
 }

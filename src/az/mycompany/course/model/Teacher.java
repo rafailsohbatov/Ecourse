@@ -10,7 +10,8 @@ import java.util.Date;
  *
  * @author Admin
  */
-public class Teacher extends Course{
+public class Teacher extends Course {
+
     private String name;
     private String surname;
     private Date dob;
@@ -65,6 +66,9 @@ public class Teacher extends Course{
     public void setWork_experience(Integer work_experience) {
         this.work_experience = work_experience;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return name + " " + surname;
+    }
 }

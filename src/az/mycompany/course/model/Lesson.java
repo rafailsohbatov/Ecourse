@@ -36,6 +36,11 @@ public class Lesson extends Course{
     public void setPrice(Float price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return name + " " + price;
+    }
     
     
 }

@@ -37,7 +37,7 @@ public class MainClass {
                 break;
             }
         }
-        
+
         StudentDao studentDao = new StudentDaoImpl();
         StudentService studentService = new StudentServiceImpl(studentDao);
         TeacherDao teacherDao = new TeacherDaoImpl();
@@ -46,9 +46,10 @@ public class MainClass {
         LessonService lessonService = new LessonServiceImpl(lessanDao);
         PaymentDao paymentDao = new PaymentDaoImpl();
         PaymentService paymentService = new PaymentServiceImpl(paymentDao);
-        MainFrame mainFrame = new MainFrame(studentService,teacherService,lessonService,paymentService);
-        mainFrame.setVisible(true);
-       
-    }
+        // MainFrame mainFrame = new MainFrame(studentService,teacherService,lessonService,paymentService);
+        // mainFrame.setVisible(true);
+        LogInFrame logInFrame = new LogInFrame(studentService,teacherService,lessonService,paymentService);
+        logInFrame.setVisible(true);
 
+    }
 }

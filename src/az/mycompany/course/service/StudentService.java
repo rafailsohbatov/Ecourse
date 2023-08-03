@@ -5,6 +5,7 @@
 package az.mycompany.course.service;
 
 import az.mycompany.course.model.Student;
+import az.mycompany.course.model.StudentTeacherLesson;
 import java.util.List;
 
 /**
@@ -22,6 +23,9 @@ public interface StudentService {
     void updateStudent(Student student) throws Exception;
 
     void deleteStudent(Long studentId) throws Exception;
+
+    List<Student> searchStudentData(String keyword) throws Exception;
     
-     List<Student> searchStudentData(String keyword) throws Exception;
+    StudentTeacherLesson getStudentTeacherLessonById(Long studentId,Long teacherLessonId) throws Exception;
+
 }

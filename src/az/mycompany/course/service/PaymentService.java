@@ -13,4 +13,6 @@ import java.util.List;
  */
 public interface PaymentService {
     List<Payment> getPaymentList() throws Exception;
+    
+    public void addPayment(Payment payment) throws Exception;
 }

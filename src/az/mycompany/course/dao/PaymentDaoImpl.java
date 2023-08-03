@@ -68,4 +68,17 @@ public class PaymentDaoImpl implements PaymentDao {
         return paymentList;
     }
 
-}
+    @Override
+    public void addPayment(Payment payment) throws Exception {
+        String sql = """
+                     INSERT INTO PAYMENT (ID, STUDENT_TEACHER_LESSON_ID, AMOUNT)
+                          VALUES (PAYMENT_SEQ.NEXTVAL, ?,?) """;
+        try ( Connection c = DBHelper.getConnection();  PreparedStatement ps = c.prepareStatement(sql)){
+            ps.setLong(1, payment.getStudentTeacherLesson().getId());
+            ps.setFloat(2, payment.getAmount());
+            ps.execute();
+            c.commit();
+        } 
+        }
+
+    }

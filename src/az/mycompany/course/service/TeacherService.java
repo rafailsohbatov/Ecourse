@@ -4,7 +4,9 @@
  */
 package az.mycompany.course.service;
 
+import az.mycompany.course.model.Lesson;
 import az.mycompany.course.model.Teacher;
+import az.mycompany.course.model.TeacherLesson;
 import java.util.List;
 
 /**
@@ -14,4 +16,8 @@ import java.util.List;
 public interface TeacherService {
 
     List<Teacher> getTeacherList() throws Exception;
+    
+     List<Teacher> getTeacherListByLessonId(Long lessonId) throws Exception;
+
+     TeacherLesson getTeacherLessonByTeacherAndLessonId(Long teacherId,Long LessonId) throws Exception;
 }

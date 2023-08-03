@@ -5,6 +5,7 @@
 package az.mycompany.course.gui;
 
 import az.mycompany.course.model.Lesson;
+import az.mycompany.course.model.LoginUser;
 import az.mycompany.course.model.Payment;
 import az.mycompany.course.model.Student;
 import az.mycompany.course.model.Teacher;
@@ -13,8 +14,6 @@ import az.mycompany.course.service.PaymentService;
 import az.mycompany.course.service.StudentService;
 import az.mycompany.course.service.TeacherService;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,18 +23,23 @@ import javax.swing.table.DefaultTableModel;
  */
 public class MainFrame extends javax.swing.JFrame {
 
+    private LoginUser loginUser;
     private String gloBtnName = "";
     private StudentService studentService;
     private TeacherService teacherService;
     private LessonService lessonService;
     private PaymentService paymentService;
 
-    MainFrame(StudentService studentService, TeacherService teacherService, LessonService lessonService, PaymentService paymentService) {
+    MainFrame(StudentService studentService, TeacherService teacherService, LessonService lessonService, PaymentService paymentService, LoginUser loginUser) {
         initComponents();
         this.studentService = studentService;
         this.teacherService = teacherService;
         this.lessonService = lessonService;
         this.paymentService = paymentService;
+        this.loginUser = loginUser;
+        usernameLbl.setText(loginUser.getName() + " " + loginUser.getSurname());
+        usernameLbl.setVisible(true);
+        grantUser();
     }
 
     /**
@@ -53,6 +57,9 @@ public class MainFrame extends javax.swing.JFrame {
         deleteBtn = new javax.swing.JButton();
         keywordTxt = new javax.swing.JTextField();
         searchBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        usernameLbl = new javax.swing.JLabel();
+        logOutBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         studentDataBtn = new javax.swing.JButton();
         teacherDataBtn = new javax.swing.JButton();
@@ -62,7 +69,7 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
@@ -100,6 +107,17 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Welcome!");
+
+        usernameLbl.setText("Username");
+
+        logOutBtn.setText("Log Out");
+        logOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logOutBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -111,24 +129,33 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(updateBtn)
                 .addGap(37, 37, 37)
                 .addComponent(deleteBtn)
-                .addGap(144, 144, 144)
+                .addGap(126, 126, 126)
                 .addComponent(keywordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(searchBtn)
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addGap(62, 62, 62)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(usernameLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logOutBtn)
+                .addGap(20, 20, 20))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(updateBtn)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(updateBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(keywordTxt)
-                        .addComponent(searchBtn))
-                    .addComponent(deleteBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(searchBtn)
+                        .addComponent(jLabel1)
+                        .addComponent(usernameLbl)
+                        .addComponent(logOutBtn))
                     .addComponent(newBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -167,12 +194,12 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(studentDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(teacherDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lessonDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PaymentDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(PaymentDataBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +231,9 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,21 +245,22 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 11, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -262,6 +292,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
             case "teacher" -> {
             }
+
+            case "payment" -> {
+                NewPaymentFrame newPaymentFrame = new NewPaymentFrame(studentService, lessonService, teacherService, paymentService);
+                newPaymentFrame.setVisible(true);
+            }
             default ->
                 JOptionPane.showMessageDialog(null, "Please,first click table");
         }
@@ -282,6 +317,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
             case "teacher" -> {
             }
+
             default ->
                 JOptionPane.showMessageDialog(null, "Please,first click table", "Error Update", JOptionPane.ERROR);
         }
@@ -339,9 +375,16 @@ public class MainFrame extends javax.swing.JFrame {
         searchBtnActionPerformed(null);
     }//GEN-LAST:event_keywordTxtKeyReleased
 
+    private void logOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutBtnActionPerformed
+        LogInFrame logInFrame = new LogInFrame(studentService, teacherService, lessonService, paymentService);
+        logInFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_logOutBtnActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton PaymentDataBtn;
     private javax.swing.JButton deleteBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -349,11 +392,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField keywordTxt;
     private javax.swing.JButton lessonDataBtn;
+    private javax.swing.JButton logOutBtn;
     private javax.swing.JButton newBtn;
     private javax.swing.JButton searchBtn;
     private javax.swing.JButton studentDataBtn;
     private javax.swing.JButton teacherDataBtn;
     private javax.swing.JButton updateBtn;
+    private javax.swing.JLabel usernameLbl;
     // End of variables declaration//GEN-END:variables
 
     private void showStudentData(List<Student> studentList) {
@@ -424,7 +469,7 @@ public class MainFrame extends javax.swing.JFrame {
             model.addColumn("Time");
             model.addColumn("Price");
 
-            List<Lesson> teacherList = lessonService.getStudentList();
+            List<Lesson> teacherList = lessonService.getLessonList();
             for (Lesson lesson : teacherList) {
                 Object[] obj = new Object[]{lesson.getId(), lesson.getName(), lesson.getTime(),
                     lesson.getPrice()};
@@ -465,4 +510,15 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
+    private void grantUser() {
+        String roleName = loginUser.getRole().getRoleName();
+        if (roleName.equalsIgnoreCase("STUDENT_ROLE")) {
+            newBtn.setVisible(false);
+            updateBtn.setVisible(false);
+            deleteBtn.setVisible(false);
+            PaymentDataBtn.setVisible(false);
+        } else if (roleName.equalsIgnoreCase("TEACHER_ROLE")) {
+
+        }
+    }
 }

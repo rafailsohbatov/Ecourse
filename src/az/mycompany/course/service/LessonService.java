@@ -12,5 +12,7 @@ import java.util.List;
  * @author Admin
  */
 public interface LessonService {
-     List<Lesson> getStudentList() throws Exception;
+     List<Lesson> getLessonList() throws Exception;
+     
+     List<Lesson> getLessonByStudentId(Long studentId) throws Exception;
 }

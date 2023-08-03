@@ -60,7 +60,7 @@ public class Student extends Course {
 
     @Override
     public String toString() {
-        return "Student{" + "name=" + name + ", surname=" + surname + ", dob=" + dob + ", address=" + address + ", phone=" + phone + '}';
+        return   name + " " + surname;
     }
     
     

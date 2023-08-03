@@ -25,4 +25,9 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentDao.getPaymentList();
     }
 
+    @Override
+    public void addPayment(Payment payment) throws Exception {
+        paymentDao.addPayment(payment);
+    }
+
 }
