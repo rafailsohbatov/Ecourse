@@ -1,0 +1,61 @@
+/* Formatted on 01.08.2023 16:08:17 (QP5 v5.185.11230.41888) */
+INSERT INTO PAYMENT (ID, STUDENT_TEACHER_LESSON_ID, AMOUNT)
+     VALUES (PAYMENT_SEQ.NEXTVAL, 2, 1);
+
+SELECT * FROM PAYMENT;
+
+
+SELECT * FROM STUDENT_TEACHER_LESSON;
+
+SELECT P.ID,
+       S.NAME || ' \ ' || S.SURNAME STUDENT_NAME_AND_SURNAME,
+       T.NAME TEACHER_NAME,
+       L.NAME LESSON_NAME,
+       P.AMOUNT
+  FROM PAYMENT P
+       INNER JOIN STUDENT_TEACHER_LESSON STL
+          ON STL.ID = P.STUDENT_TEACHER_LESSON_ID
+       INNER JOIN STUDENT S
+          ON STL.STUDENT_ID = S.ID
+       INNER JOIN TEACHER_LESSON TL
+          ON STL.TEACHER_LESSON_ID = TL.ID
+       INNER JOIN TEACHER T
+          ON TL.TEACHER_ID = T.ID
+       INNER JOIN LESSON L
+          ON TL.LESSON_ID = L.ID
+ WHERE P.ACTIVE = 1;
+
+SELECT P.ID,
+       S.NAME,
+       S.SURNAME,
+       T.NAME TeacherName,
+       T.SURNAME TeacherSurname,
+       L.NAME LessonName,
+       L.TIME,
+       L.PRICE,
+       P.AMOUNT
+  FROM PAYMENT P
+       INNER JOIN STUDENT_TEACHER_LESSON STL
+          ON P.STUDENT_TEACHER_LESSON_ID = STL.ID
+       INNER JOIN TEACHER_LESSON TL
+          ON TL.ID = STL.TEACHER_LESSON_ID
+       INNER JOIN STUDENT S
+          ON S.ID = STL.STUDENT_ID
+       INNER JOIN LESSON L
+          ON L.ID = TL.LESSON_ID
+       INNER JOIN TEACHER T
+          ON T.ID = TL.TEACHER_ID
+ WHERE P.ACTIVE = 1;
+ 
+ select t.id,t.name ,t.surname from teacher_lesson tl inner join teacher t on t.id = TL.TEACHER_ID 
+                     inner join lesson l on l.id = tl.LESSON_ID WHERE TL.ACTIVE = 1 AND l.id = 4 ;
+                     
+                     
+                     SELECT * FROM TEACHER_LESSON TL INnER JOIN TEACHER T ON T.ID = TL.TEACHER_ID 
+               INNER JOIN LESSON L ON L.ID = TL.LESSON_ID WHERE TL.ACTIVE = 1 AND T.ID = ? AND L.ID = ?;
+               
+               
+               SELECT * FROM STUDENT_TEACHER_LESSON STL INNER JOIN TEACHER_LESSON TL ON TL.ID = STL.TEACHER_LESSON_ID 
+               INNER JOIN STUDENT S ON S.ID = STL.STUDENT_ID WHERE STL.ACTIVE = 1 AND S.ID = 1 AND TL.ID = 1 ;
+               
+               SELECT * FROM STUDENT_TEACHER_LESSON STL;
